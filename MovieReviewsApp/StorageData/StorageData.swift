@@ -7,23 +7,26 @@
 
 import UIKit
 
+enum Target {
+    case critic
+    case profile
+    case reviw
+    case date
+}
+
 class StorageData {
-    
     func fetchCachImage(with url: String?, imageView: UIImageView, _ completion: @escaping (UIImage) -> ()) {
         guard let url = url else { return }
-        print("11111111111111111111111111 \(url)")
         guard let imageUrl = url.getURL() else {
             imageView.image = UIImage(named: "notFound")
             return
         }
         
-
         if let cachedImage = self.getCachedImage(url: imageUrl) {
             completion(cachedImage)
-            print("00000000000000000000")
             return
         }
-  
+        
         fetchImage(url: imageUrl, url, completion)
     }
     
@@ -35,13 +38,10 @@ class StorageData {
             if responseURL.absoluteString != url { return }
             
             DispatchQueue.main.async {
-                print("99999999999999999999")
                 guard let image = UIImage(data: data) else { return }
                 completion(image)
             }
-            
             self.saveImageToCache(data: data, response: response)
-            
         }.resume()
     }
     
@@ -56,6 +56,31 @@ class StorageData {
             return UIImage(data: cachedResponse.data)
         }
         return nil
+    }
+    
+    func searchQuery(separatedName: [String], search: Target) -> String {
+        var result = ""
+        
+        for searchStr in separatedName  {
+            let tag = "%20"
+            if searchStr == separatedName.last {
+                result += searchStr
+            } else {
+                result += searchStr + tag
+            }
+        }
+        
+        switch search {
+        case .critic:
+            return "https://api.nytimes.com/svc/movies/v2/critics/\(result).json?api-key=GW5a0tJfWOcfQ7k3dpQizIsrmpZ33Bmm"
+        case .profile:
+            return "https://api.nytimes.com/svc/movies/v2/reviews/search.json?reviewer=\(result)&api-key=GW5a0tJfWOcfQ7k3dpQizIsrmpZ33Bmm"
+        case .reviw:
+            return "https://api.nytimes.com/svc/movies/v2/reviews/search.json?query=\(result)&api-key=GW5a0tJfWOcfQ7k3dpQizIsrmpZ33Bmm"
+        case .date:
+            return "https://api.nytimes.com/svc/movies/v2/reviews/search.json?publication-date=\(result)&api-key=GW5a0tJfWOcfQ7k3dpQizIsrmpZ33Bmm"
+        }
+        
     }
 }
 

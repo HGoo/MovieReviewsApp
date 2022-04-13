@@ -8,7 +8,6 @@
 import UIKit
 
 extension UIButton {
-    
     func animatePulse() {
         let pulse =  CASpringAnimation(keyPath: "transform.scale")
         pulse.fromValue = 0.95
@@ -24,8 +23,14 @@ extension UIButton {
         layer.borderColor = #colorLiteral(red: 1, green: 0.6109753251, blue: 0.3491381705, alpha: 1)
     }
     
+    func borderCritic() {
+        //settings for profile reviewLink button
+        layer.borderWidth = 1
+        layer.cornerRadius = 15
+        layer.borderColor = #colorLiteral(red: 0, green: 0.4780646563, blue: 0.9985368848, alpha: 1)
+    }
+    
     func showAlerrt(message: String, url: URL) -> UIAlertController {
-        
         let alert = UIAlertController(title: "Follow the link?",
                                       message: message,
                                       preferredStyle: .alert)
@@ -44,6 +49,4 @@ extension UIButton {
         
         return alert
     }
-
-    
 }

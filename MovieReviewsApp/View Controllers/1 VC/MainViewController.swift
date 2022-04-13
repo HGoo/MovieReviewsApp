@@ -8,37 +8,34 @@
 import UIKit
 
 class MainViewController: UIViewController {
-    
-    //TODO: search
-    //TODO: pull to refresh
-    //TODO: infinite scroll
-    private var reviewsJsonUrl = "https://api.nytimes.com/svc/movies/v2/reviews/all.json?api-key=GW5a0tJfWOcfQ7k3dpQizIsrmpZ33Bmm"
-    private var reviews: Review?
-    
+    // MARK: - IBOutlets
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var datePicker: UIDatePicker!
     @IBOutlet var searchReviews: UITextField!
     
+    // MARK: - Publick Properties
+    var reviews: Review?
     
+    // MARK: - Private Properties
+    private let refreshControl = UIRefreshControl()
+    private var reviewsJsonUrl = "https://api.nytimes.com/svc/movies/v2/reviews/all.json?api-key=GW5a0tJfWOcfQ7k3dpQizIsrmpZ33Bmm"
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
-        fetchData()
-    }
-    
-    
-    @IBAction func changeDate() {
-        datePicker.datePickerMode = UIDatePicker.Mode.date
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MMM yyyy"
-        //let selectedDate = dateFormatter.string(from: datePicker.date)
+        searchReviews.delegate = self
+        collectionView.alwaysBounceVertical = true
         
+        fetchData(url: reviewsJsonUrl)
+        pullTorefresh()
+        hideKeyboard()
     }
- 
-    func fetchData() {
-        guard let url = URL(string: reviewsJsonUrl) else { return }
+    
+    // MARK: - Private Methods
+    private func fetchData(url: String) {
+        guard let url = URL(string: url) else { return }
         
         URLSession.shared.dataTask(with: url) { data, _, _ in
             guard let data = data else { return }
@@ -50,6 +47,8 @@ class MainViewController: UIViewController {
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
                     self.collectionView.reloadData()
+                    self.collectionView.refreshControl?.endRefreshing()
+                    
                 }
                 print(self.reviews ?? "Error")
             } catch let error {
@@ -57,12 +56,39 @@ class MainViewController: UIViewController {
             }
         }.resume()
     }
+    
+    private func hideKeyboard() {
+        let tapScreen = UITapGestureRecognizer(target: self,
+                                               action: #selector(dismissKeyboard))
+        tapScreen.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapScreen)
+    }
+    
+    private func pullTorefresh() {
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(self.refresh), for: .valueChanged)
+        collectionView.addSubview(refreshControl)
+    }
+    
+    @objc func refresh() {
+        fetchData(url: reviewsJsonUrl)
+        refreshControl.endRefreshing()
+    }
+    
+    @objc func dismissKeyboard(sender: UITapGestureRecognizer) {
+        view.endEditing(true)
+    }
+    
+    // MARK: - IBActions
+    @IBAction func changeDate() {
+        let dateSearch = Edit().configureDate(toString: datePicker)
+        let urlSerach = StorageData().searchQuery(separatedName: [dateSearch],
+                                                  search: .date)
+        fetchData(url: urlSerach)
+    }
 }
 
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    
-    
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return reviews?.results?.count ?? 0
     }
@@ -82,26 +108,23 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             self?.present(alert, animated: true)
             self?.present(MainViewController(), animated: true, completion: nil)
         }
-        
         return cell
     }
     
+    // Tap on name critick
     @objc func viewProfile(sender: UIButton) {
         let indexPath = IndexPath(row: sender.tag, section: 0)
         let profile = self.storyboard?.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
         profile.nameForSearch = reviews?.results?[indexPath.row].byline
         self.navigationController?.pushViewController(profile, animated: true )
     }
-    
 }
 
 extension MainViewController: UICollectionViewDelegateFlowLayout {
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        return CGSize(width: self.view.frame.size.width - 30, height: 420)
+        return CGSize(width: self.view.frame.size.width - 30, height: 400)
     }
-    
 }
+
 
 

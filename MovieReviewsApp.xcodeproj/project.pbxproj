@@ -16,6 +16,9 @@
 		DDA8BAD82801B1BF0014BA9E /* CriticViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA8BAD72801B1BF0014BA9E /* CriticViewCell.swift */; };
 		DDA8BADA2801C10A0014BA9E /* ModelCritics.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA8BAD92801C10A0014BA9E /* ModelCritics.swift */; };
 		DDA8BADD280455510014BA9E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA8BADC280455510014BA9E /* ProfileViewController.swift */; };
+		DDA8BAE12805ECEC0014BA9E /* ProfileViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA8BAE02805ECEC0014BA9E /* ProfileViewCell.swift */; };
+		DDA8BAE328061D330014BA9E /* TextFiedSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA8BAE228061D330014BA9E /* TextFiedSearch.swift */; };
+		DDA8BAE628069FDE0014BA9E /* SearchFormate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA8BAE528069FDE0014BA9E /* SearchFormate.swift */; };
 		DDBF64AA27FF186400E65273 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBF64A927FF186400E65273 /* AppDelegate.swift */; };
 		DDBF64AC27FF186400E65273 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBF64AB27FF186400E65273 /* SceneDelegate.swift */; };
 		DDBF64B127FF186400E65273 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDBF64AF27FF186400E65273 /* Main.storyboard */; };
@@ -33,6 +36,9 @@
 		DDA8BAD72801B1BF0014BA9E /* CriticViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CriticViewCell.swift; sourceTree = "<group>"; };
 		DDA8BAD92801C10A0014BA9E /* ModelCritics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelCritics.swift; sourceTree = "<group>"; };
 		DDA8BADC280455510014BA9E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		DDA8BAE02805ECEC0014BA9E /* ProfileViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewCell.swift; sourceTree = "<group>"; };
+		DDA8BAE228061D330014BA9E /* TextFiedSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFiedSearch.swift; sourceTree = "<group>"; };
+		DDA8BAE528069FDE0014BA9E /* SearchFormate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFormate.swift; sourceTree = "<group>"; };
 		DDBF64A627FF186400E65273 /* MovieReviewsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieReviewsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDBF64A927FF186400E65273 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DDBF64AB27FF186400E65273 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,7 +73,7 @@
 			children = (
 				DD8EE5102800327F0002439F /* MainViewController.swift */,
 				DD8EE516280053820002439F /* ReviewViewCell.swift */,
-				DD0106332800A2E50068EAFB /* ButtonStyle.swift */,
+				DDA8BAE228061D330014BA9E /* TextFiedSearch.swift */,
 			);
 			path = "1 VC";
 			sourceTree = "<group>";
@@ -85,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				DDA8BADC280455510014BA9E /* ProfileViewController.swift */,
+				DDA8BAE02805ECEC0014BA9E /* ProfileViewCell.swift */,
 			);
 			path = "3 VC";
 			sourceTree = "<group>";
@@ -95,6 +102,15 @@
 				DD8EE5182800551B0002439F /* StorageData.swift */,
 			);
 			path = StorageData;
+			sourceTree = "<group>";
+		};
+		DDA8BAE428069FB20014BA9E /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				DD0106332800A2E50068EAFB /* ButtonStyle.swift */,
+				DDA8BAE528069FDE0014BA9E /* SearchFormate.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		DDBF649D27FF186400E65273 = {
@@ -120,6 +136,7 @@
 				DD0106352800AC8A0068EAFB /* Models */,
 				DDBF64BE27FF188A00E65273 /* View Controllers */,
 				DDA8BADE2804761A0014BA9E /* StorageData */,
+				DDA8BAE428069FB20014BA9E /* Helper */,
 				DDBF64BD27FF187E00E65273 /* Storyboard */,
 			);
 			path = MovieReviewsApp;
@@ -226,16 +243,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDA8BAE12805ECEC0014BA9E /* ProfileViewCell.swift in Sources */,
 				DD8EE5152800339C0002439F /* CriticsViewController.swift in Sources */,
 				DDBF64AA27FF186400E65273 /* AppDelegate.swift in Sources */,
 				DDBF64AC27FF186400E65273 /* SceneDelegate.swift in Sources */,
 				DD8EE5192800551B0002439F /* StorageData.swift in Sources */,
 				DD8EE5112800327F0002439F /* MainViewController.swift in Sources */,
 				DDA8BAD82801B1BF0014BA9E /* CriticViewCell.swift in Sources */,
+				DDA8BAE328061D330014BA9E /* TextFiedSearch.swift in Sources */,
 				DDA8BADD280455510014BA9E /* ProfileViewController.swift in Sources */,
 				DD0106372800ACA40068EAFB /* ModelReview.swift in Sources */,
 				DD8EE517280053820002439F /* ReviewViewCell.swift in Sources */,
 				DD0106342800A2E50068EAFB /* ButtonStyle.swift in Sources */,
+				DDA8BAE628069FDE0014BA9E /* SearchFormate.swift in Sources */,
 				DDA8BADA2801C10A0014BA9E /* ModelCritics.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

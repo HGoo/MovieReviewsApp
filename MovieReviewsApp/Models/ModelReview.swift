@@ -9,8 +9,6 @@ import Foundation
 
 struct Review: Decodable {
     let status: String?
-    let copyright: String?
-    let hasMore: Bool?
     let numResults: Int?
     let results: [Result]?
 }
@@ -18,8 +16,6 @@ struct Review: Decodable {
 
 struct Result: Decodable {
     let displayTitle: String?
-    let mpaaRating: String?
-    let criticsPick: Int?
     var byline: String?
     let headline: String?
     let summaryShort: String?
@@ -31,7 +27,6 @@ struct Result: Decodable {
 }
 
 struct Link: Decodable {
-    let type: String?
     let url: String?
     let suggestedLinkText: String?
 }
@@ -39,8 +34,7 @@ struct Link: Decodable {
 struct Multimedia: Decodable {
     let type: String?
     let src: String?
-    let height: Int?
-    let width: Int?
+    
 }
 
 
