@@ -10,7 +10,7 @@
 		DD0106342800A2E50068EAFB /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0106332800A2E50068EAFB /* ButtonStyle.swift */; };
 		DD0106372800ACA40068EAFB /* ModelReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0106362800ACA40068EAFB /* ModelReview.swift */; };
 		DD8EE5112800327F0002439F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8EE5102800327F0002439F /* MainViewController.swift */; };
-		DD8EE5152800339C0002439F /* CriticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8EE5142800339C0002439F /* CriticsViewController.swift */; };
+		DD8EE5152800339C0002439F /* CriticsViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8EE5142800339C0002439F /* CriticsViewController1.swift */; };
 		DD8EE517280053820002439F /* ReviewViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8EE516280053820002439F /* ReviewViewCell.swift */; };
 		DD8EE5192800551B0002439F /* StorageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8EE5182800551B0002439F /* StorageData.swift */; };
 		DDA8BAD82801B1BF0014BA9E /* CriticViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA8BAD72801B1BF0014BA9E /* CriticViewCell.swift */; };
@@ -30,7 +30,7 @@
 		DD0106332800A2E50068EAFB /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		DD0106362800ACA40068EAFB /* ModelReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelReview.swift; sourceTree = "<group>"; };
 		DD8EE5102800327F0002439F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		DD8EE5142800339C0002439F /* CriticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CriticsViewController.swift; sourceTree = "<group>"; };
+		DD8EE5142800339C0002439F /* CriticsViewController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CriticsViewController1.swift; sourceTree = "<group>"; };
 		DD8EE516280053820002439F /* ReviewViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewCell.swift; sourceTree = "<group>"; };
 		DD8EE5182800551B0002439F /* StorageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageData.swift; sourceTree = "<group>"; };
 		DDA8BAD72801B1BF0014BA9E /* CriticViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CriticViewCell.swift; sourceTree = "<group>"; };
@@ -81,7 +81,7 @@
 		DD8EE5132800337F0002439F /* 2 VC */ = {
 			isa = PBXGroup;
 			children = (
-				DD8EE5142800339C0002439F /* CriticsViewController.swift */,
+				DD8EE5142800339C0002439F /* CriticsViewController1.swift */,
 				DDA8BAD72801B1BF0014BA9E /* CriticViewCell.swift */,
 			);
 			path = "2 VC";
@@ -244,7 +244,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DDA8BAE12805ECEC0014BA9E /* ProfileViewCell.swift in Sources */,
-				DD8EE5152800339C0002439F /* CriticsViewController.swift in Sources */,
+				DD8EE5152800339C0002439F /* CriticsViewController1.swift in Sources */,
 				DDBF64AA27FF186400E65273 /* AppDelegate.swift in Sources */,
 				DDBF64AC27FF186400E65273 /* SceneDelegate.swift in Sources */,
 				DD8EE5192800551B0002439F /* StorageData.swift in Sources */,
