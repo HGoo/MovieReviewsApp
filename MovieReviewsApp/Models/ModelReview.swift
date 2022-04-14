@@ -13,7 +13,6 @@ struct Review: Decodable {
     let results: [Result]?
 }
 
-
 struct Result: Decodable {
     let displayTitle: String?
     var byline: String?
@@ -34,7 +33,6 @@ struct Link: Decodable {
 struct Multimedia: Decodable {
     let type: String?
     let src: String?
-    
 }
 
 
