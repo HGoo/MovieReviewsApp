@@ -45,8 +45,7 @@ class ProfileViewController: UIViewController {
    
     // MARK: - Private Methods
     private func fetchDataCritic() {
-        let url = criticProfileReviewJsonUrl//.replacingOccurrences(of: " ", with: "", options: .literal, range: nil)
-        print(url + "1111111")
+        let url = criticProfileReviewJsonUrl
         guard let url = URL(string: url) else { return }
         URLSession.shared.dataTask(with: url) { data, _, _ in
             guard let data = data else { return }
@@ -58,6 +57,7 @@ class ProfileViewController: UIViewController {
                     guard let self = self else { return }
                     self.configureProfile()
                     self.collectionProfile.reloadData()
+                    print(self.criticProfile!)
                 }
                 print(self.criticProfile ?? "Error")
             } catch let error {
@@ -67,8 +67,7 @@ class ProfileViewController: UIViewController {
     }
     
     private func fetchDataReview() {
-        let url = criticReviewJsonUrl//.replacingOccurrences(of: " ", with: "", options: .literal, range: nil)
-        print(url + "2222222")
+        let url = criticReviewJsonUrl
         guard let url = URL(string: url) else { return }
         URLSession.shared.dataTask(with: url) { data, _, _ in
             guard let data = data else { return }
