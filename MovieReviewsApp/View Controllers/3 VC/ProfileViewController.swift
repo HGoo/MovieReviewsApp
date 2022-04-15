@@ -19,11 +19,11 @@ class ProfileViewController: UIViewController {
     private var criticReview: Review?
     private var criticProfileReviewJsonUrl: String {
         guard let name = nameForSearch else { return ""}
-        return StorageData().searchQuery(nameForSearch: name, search: .critic)
+        return Edit.shared.searchQuery(nameForSearch: name, search: .critic)
     }
     private var criticReviewJsonUrl: String {
         guard let name = nameForSearch else { return ""}
-        return StorageData().searchQuery(nameForSearch: name, search: .profile)
+        return Edit.shared.searchQuery(nameForSearch: name, search: .profile)
     }
 
     var nameForSearch: String?

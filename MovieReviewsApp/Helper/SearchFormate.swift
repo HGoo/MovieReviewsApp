@@ -8,6 +8,12 @@
 import Foundation
 import UIKit
 
+enum Target {
+    case critic
+    case profile
+    case reviw
+    case date
+}
 
 final class Edit {
     
@@ -30,9 +36,30 @@ final class Edit {
         return "\(selectedDate)%3A\(selectedDate)"
     }
     
-    func configureSearchQuery(search: Target = .critic, _ nameForSearch: String? ) -> String {
-        guard let string = nameForSearch else { return ""}
+    func searchQuery(nameForSearch: String, search: Target) -> String {
         
-        return StorageData().searchQuery(nameForSearch: string, search: search)
+        let nameForSearch = nameForSearch.components(separatedBy: " ")
+        var result = ""
+        
+        for searchStr in nameForSearch  {
+            let tag = "%20"
+            if searchStr == nameForSearch.last {
+                result += searchStr
+            } else {
+                result += searchStr + tag
+            }
+        }
+        
+        switch search {
+        case .critic:
+            return "https://api.nytimes.com/svc/movies/v2/critics/\(result).json?api-key=GW5a0tJfWOcfQ7k3dpQizIsrmpZ33Bmm"
+        case .profile:
+            return "https://api.nytimes.com/svc/movies/v2/reviews/search.json?reviewer=\(result)&api-key=GW5a0tJfWOcfQ7k3dpQizIsrmpZ33Bmm"
+        case .reviw:
+            return "https://api.nytimes.com/svc/movies/v2/reviews/search.json?query=\(result)&api-key=GW5a0tJfWOcfQ7k3dpQizIsrmpZ33Bmm"
+        case .date:
+            return "https://api.nytimes.com/svc/movies/v2/reviews/search.json?publication-date=\(result)&api-key=GW5a0tJfWOcfQ7k3dpQizIsrmpZ33Bmm"
+        }
+        
     }
 }

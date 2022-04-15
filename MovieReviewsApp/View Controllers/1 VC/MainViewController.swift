@@ -70,7 +70,7 @@ class MainViewController: UIViewController {
     @IBAction func changeDate() {
         let dateSearch = Edit.shared.configureDate(toString: datePicker)
     
-        let urlSerach = StorageData().searchQuery(nameForSearch: dateSearch,
+        let urlSerach = Edit.shared.searchQuery(nameForSearch: dateSearch,
                                                   search: .date)
         fetchData(url: urlSerach)
     }
@@ -123,7 +123,7 @@ extension MainViewController: UITextFieldDelegate {
         if textField == searchReviews {
             
             guard let separeteText = textField.text else { return true }
-            let search = StorageData().searchQuery(nameForSearch: separeteText,
+            let search = Edit.shared.searchQuery(nameForSearch: separeteText,
                                                    search: .reviw)
             
             textField.resignFirstResponder()
