@@ -27,6 +27,8 @@ class MainViewController: UIViewController {
         fetchData(url: reviewsJsonUrl)
         pullTorefresh()
         hideKeyboard()
+        
+        searchReviews.layer.cornerRadius = 30
     }
     
      func fetchData(url: String) {
