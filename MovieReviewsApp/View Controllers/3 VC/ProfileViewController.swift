@@ -22,12 +22,12 @@ class ProfileViewController: UIViewController {
     private var criticProfileReviewJsonUrl: String {
         guard let name = nameForSearch?.components(separatedBy: " ") else { return ""}
        
-        return StorageData().searchQuery(separatedName: name, search: .profile)
+        return StorageData().searchQuery(separatedName: name, search: .critic)
     }
     private var criticReviewJsonUrl: String {
         guard let name = nameForSearch?.components(separatedBy: " ") else { return ""}
        
-        return StorageData().searchQuery(separatedName: name, search: .critic)
+        return StorageData().searchQuery(separatedName: name, search: .profile)
     }
 
     
