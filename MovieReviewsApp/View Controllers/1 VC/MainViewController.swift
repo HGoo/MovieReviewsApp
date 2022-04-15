@@ -9,20 +9,13 @@ import UIKit
 
 class MainViewController: UIViewController {
     
-    // MARK: - IBOutlets
-    
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var datePicker: UIDatePicker!
     @IBOutlet var searchReviews: UITextField!
-    
-    var reviews: Review?
-    
-    // MARK: - Private Properties
-    
+   
     private let refreshControl = UIRefreshControl()
     private var reviewsJsonUrl = "https://api.nytimes.com/svc/movies/v2/reviews/all.json?api-key=GW5a0tJfWOcfQ7k3dpQizIsrmpZ33Bmm"
-    
-    // MARK: - Lifecycle
+    var reviews: Review?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,28 +29,20 @@ class MainViewController: UIViewController {
         hideKeyboard()
     }
     
-    // MARK: - Private Methods
     private func fetchData(url: String) {
-        guard let url = URL(string: url) else { return }
-        
-        URLSession.shared.dataTask(with: url) { data, _, _ in
-            guard let data = data else { return }
-            
-            do {
-                let decoder = JSONDecoder()
-                decoder.keyDecodingStrategy = .convertFromSnakeCase
-                self.reviews = try decoder.decode(Review.self, from: data)
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
-                    self.collectionView.reloadData()
-                    self.collectionView.refreshControl?.endRefreshing()
-                    
-                }
-                print(self.reviews ?? "Error")
-            } catch let error {
-                print(error)
+        NetworkDataFetch.shared.fetchReview(urlString: url) { [weak self] reviewModel, error in
+            guard let self = self else { return }
+            if error == nil {
+                guard let reviewModel = reviewModel else { return }
+                self.reviews = reviewModel
+                self.collectionView.reloadData()
+                self.collectionView.refreshControl?.endRefreshing()
+                print(reviewModel)
+            } else {
+                print(error!.localizedDescription)
+                
             }
-        }.resume()
+        }
     }
     
     private func hideKeyboard() {
@@ -82,7 +67,6 @@ class MainViewController: UIViewController {
         view.endEditing(true)
     }
     
-    // MARK: - IBActions
     @IBAction func changeDate() {
         let dateSearch = Edit().configureDate(toString: datePicker)
         
@@ -91,6 +75,8 @@ class MainViewController: UIViewController {
         fetchData(url: urlSerach)
     }
 }
+
+// MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -125,6 +111,8 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
 }
 
+
+// MARK: - UICollectionViewDelegateFlowLayout
 extension MainViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: self.view.frame.size.width - 30, height: 400)
