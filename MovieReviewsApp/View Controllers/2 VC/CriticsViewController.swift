@@ -8,16 +8,13 @@
 import UIKit
 
 class CriticsViewController: UIViewController {
-    // MARK: - IBOutlets
     @IBOutlet var collectionViewCritics: UICollectionView!
     
-    // MARK: - Private Properties
     private let criticsJsonUrl = "https://api.nytimes.com/svc/movies/v2/critics/all.json?api-key=GW5a0tJfWOcfQ7k3dpQizIsrmpZ33Bmm"
     private var critics: Critics?
     private let searchController = UISearchController(searchResultsController: nil)
     private var searching = false
     
-    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionViewCritics.delegate = self
@@ -27,25 +24,18 @@ class CriticsViewController: UIViewController {
         configureSearchController()
     }
     
-    // MARK: - Methods
     func fetchData() {
-        guard let url = URL(string: criticsJsonUrl) else { return }
-        URLSession.shared.dataTask(with: url) { data, _, _ in
-            guard let data = data else { return }
-            do {
-                let decoder = JSONDecoder()
-                decoder.keyDecodingStrategy = .convertFromSnakeCase
-                self.critics = try decoder.decode(Critics.self, from: data)
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
-                    self.collectionViewCritics.reloadData()
-                    //
-                }
-                print(self.critics ?? "Error review")
-            } catch let error {
-                print(error)
+        NetworkDataFetch.shared.fetchCritics(urlString: criticsJsonUrl) { [weak self] criticModel, error in
+            guard let self = self else { return }
+            if error == nil {
+                guard let criticModel = criticModel else { return }
+                self.critics = criticModel
+                self.collectionViewCritics.reloadData()
+                print(criticModel)
+            } else {
+                print(error!.localizedDescription)
             }
-        }.resume()
+        }
     }
     
     private func configureSearchController() {
