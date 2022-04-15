@@ -8,7 +8,6 @@
 import UIKit
 
 class ReviewViewCell: UICollectionViewCell {
-    // MARK: - IBOutlets
     @IBOutlet var imageReview: UIImageView!
     @IBOutlet var headerReview: UILabel!
     @IBOutlet var bodyReview: UILabel!
@@ -16,14 +15,12 @@ class ReviewViewCell: UICollectionViewCell {
     @IBOutlet var publishDate: UILabel!
     @IBOutlet var reviewLink: UIButton!
     
-    // MARK: - Publick Properties
     var onMoreInfoTap: ((_ :UIAlertController) -> Void)?
     var indexPath: IndexPath!
     var asyncIndex: Int!
     
     private var reviewContainer: Results!
     
-    // MARK: - Publick Methods
     func configure(with review: Results, index : IndexPath) {
         //TODO: Asyn match
         indexPath = index
@@ -41,7 +38,6 @@ class ReviewViewCell: UICollectionViewCell {
         }
     }
 
-    // MARK: - Private Methods
     private func configureReviewFields() {
         criticProfile.setTitle("  \(reviewContainer.byline ?? "No Name")", for: .normal)
         bodyReview.text = reviewContainer.summaryShort
@@ -55,7 +51,6 @@ class ReviewViewCell: UICollectionViewCell {
         }
     }
     
-    // MARK: - IBActions
     @IBAction func reviewLinkPresed(_ sender: Any) {
         reviewLink.animatePulse()
         

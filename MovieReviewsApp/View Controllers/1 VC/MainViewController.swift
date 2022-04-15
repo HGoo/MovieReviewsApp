@@ -29,7 +29,7 @@ class MainViewController: UIViewController {
         hideKeyboard()
     }
     
-    private func fetchData(url: String) {
+     func fetchData(url: String) {
         NetworkDataFetch.shared.fetchReview(urlString: url) { [weak self] reviewModel, error in
             guard let self = self else { return }
             if error == nil {
@@ -111,8 +111,32 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
 }
 
+// MARK: - UITextFieldDelegate
+
+extension MainViewController: UITextFieldDelegate {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        view.endEditing(true)
+    }
+        
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == searchReviews {
+            
+            guard let separeteText = textField.text else { return true }
+            let search = StorageData().searchQuery(nameForSearch: separeteText,
+                                                   search: .reviw)
+            
+            textField.resignFirstResponder()
+            textField.text = nil
+            
+            fetchData(url: search)
+          }
+        return true
+    }
+}
 
 // MARK: - UICollectionViewDelegateFlowLayout
+
 extension MainViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: self.view.frame.size.width - 30, height: 400)

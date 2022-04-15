@@ -19,7 +19,6 @@
 		DDA8BADA2801C10A0014BA9E /* ModelCritics.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA8BAD92801C10A0014BA9E /* ModelCritics.swift */; };
 		DDA8BADD280455510014BA9E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA8BADC280455510014BA9E /* ProfileViewController.swift */; };
 		DDA8BAE12805ECEC0014BA9E /* ProfileViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA8BAE02805ECEC0014BA9E /* ProfileViewCell.swift */; };
-		DDA8BAE328061D330014BA9E /* TextFiedSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA8BAE228061D330014BA9E /* TextFiedSearch.swift */; };
 		DDA8BAE628069FDE0014BA9E /* SearchFormate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA8BAE528069FDE0014BA9E /* SearchFormate.swift */; };
 		DDBF64AA27FF186400E65273 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBF64A927FF186400E65273 /* AppDelegate.swift */; };
 		DDBF64AC27FF186400E65273 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBF64AB27FF186400E65273 /* SceneDelegate.swift */; };
@@ -41,7 +40,6 @@
 		DDA8BAD92801C10A0014BA9E /* ModelCritics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelCritics.swift; sourceTree = "<group>"; };
 		DDA8BADC280455510014BA9E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		DDA8BAE02805ECEC0014BA9E /* ProfileViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewCell.swift; sourceTree = "<group>"; };
-		DDA8BAE228061D330014BA9E /* TextFiedSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFiedSearch.swift; sourceTree = "<group>"; };
 		DDA8BAE528069FDE0014BA9E /* SearchFormate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFormate.swift; sourceTree = "<group>"; };
 		DDBF64A627FF186400E65273 /* MovieReviewsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieReviewsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDBF64A927FF186400E65273 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -77,7 +75,6 @@
 			children = (
 				DD8EE5102800327F0002439F /* MainViewController.swift */,
 				DD8EE516280053820002439F /* ReviewViewCell.swift */,
-				DDA8BAE228061D330014BA9E /* TextFiedSearch.swift */,
 			);
 			path = "1 VC";
 			sourceTree = "<group>";
@@ -257,7 +254,6 @@
 				DD8EE5192800551B0002439F /* StorageData.swift in Sources */,
 				DD8EE5112800327F0002439F /* MainViewController.swift in Sources */,
 				DDA8BAD82801B1BF0014BA9E /* CriticViewCell.swift in Sources */,
-				DDA8BAE328061D330014BA9E /* TextFiedSearch.swift in Sources */,
 				DDA8BADD280455510014BA9E /* ProfileViewController.swift in Sources */,
 				DD0106372800ACA40068EAFB /* ModelReview.swift in Sources */,
 				DD8EE517280053820002439F /* ReviewViewCell.swift in Sources */,
