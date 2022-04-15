@@ -7,18 +7,20 @@
 
 import Foundation
 
-struct Critics: Decodable {
+struct Critics: Decodable, Equatable {
     let results: [ResultCritic]?
 }
 
-struct ResultCritic: Decodable {
+struct ResultCritic: Decodable, Equatable {
     let displayName: String?
     let bio: String?
     let status: String?
     let multimedia: Resourses?
 }
 
-struct Resourses: Decodable {
+struct Resourses: Decodable, Equatable {
     let resource: Multimedia?
 }
+
+
 

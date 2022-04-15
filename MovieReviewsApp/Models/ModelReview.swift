@@ -30,7 +30,7 @@ struct Link: Decodable {
     let suggestedLinkText: String?
 }
 
-struct Multimedia: Decodable {
+struct Multimedia: Decodable, Equatable {
     let type: String?
     let src: String?
 }
