@@ -20,8 +20,7 @@ class ProfileViewController: UIViewController {
     private var criticProfile: Critics?
     private var criticReview: Review?
     private var criticProfileReviewJsonUrl: String {
-        let name = nameForSearch?.components(separatedBy: " ")
-        guard let name = name else { return ""}
+        guard let name = nameForSearch else { return ""}
         return StorageData().searchQuery(separatedName: name, search: .profile)
     }
     private var criticProfileInfoJsonUrl: String {

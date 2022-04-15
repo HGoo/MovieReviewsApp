@@ -58,27 +58,17 @@ class StorageData {
         return nil
     }
     
-    func searchQuery(separatedName: [String], search: Target) -> String {
-        var result = ""
-        
-        for searchStr in separatedName  {
-            let tag = "%20"
-            if searchStr == separatedName.last {
-                result += searchStr
-            } else {
-                result += searchStr + tag
-            }
-        }
+    func searchQuery(separatedName: String, search: Target) -> String {
         
         switch search {
         case .critic:
-            return "https://api.nytimes.com/svc/movies/v2/critics/\(result).json?api-key=GW5a0tJfWOcfQ7k3dpQizIsrmpZ33Bmm"
+            return "https://api.nytimes.com/svc/movies/v2/critics/\(separatedName).json?api-key=GW5a0tJfWOcfQ7k3dpQizIsrmpZ33Bmm"
         case .profile:
-            return "https://api.nytimes.com/svc/movies/v2/reviews/search.json?reviewer=\(result)&api-key=GW5a0tJfWOcfQ7k3dpQizIsrmpZ33Bmm"
+            return "https://api.nytimes.com/svc/movies/v2/reviews/search.json?reviewer=\(separatedName)&api-key=GW5a0tJfWOcfQ7k3dpQizIsrmpZ33Bmm"
         case .reviw:
-            return "https://api.nytimes.com/svc/movies/v2/reviews/search.json?query=\(result)&api-key=GW5a0tJfWOcfQ7k3dpQizIsrmpZ33Bmm"
+            return "https://api.nytimes.com/svc/movies/v2/reviews/search.json?query=\(separatedName)&api-key=GW5a0tJfWOcfQ7k3dpQizIsrmpZ33Bmm"
         case .date:
-            return "https://api.nytimes.com/svc/movies/v2/reviews/search.json?publication-date=\(result)&api-key=GW5a0tJfWOcfQ7k3dpQizIsrmpZ33Bmm"
+            return "https://api.nytimes.com/svc/movies/v2/reviews/search.json?publication-date=\(separatedName)&api-key=GW5a0tJfWOcfQ7k3dpQizIsrmpZ33Bmm"
         }
         
     }

@@ -15,10 +15,15 @@ extension MainViewController: UITextFieldDelegate {
         
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == searchReviews {
-            let separeteText = textField.text?.components(separatedBy: " ")
+            
+            let separeteText = textField.text
             guard let separeteText = separeteText else { return true }
+            
+            
             let search = StorageData().searchQuery(separatedName: separeteText,
                                                    search: .reviw)
+            
+            
             textField.resignFirstResponder()
             textField.text = nil
             

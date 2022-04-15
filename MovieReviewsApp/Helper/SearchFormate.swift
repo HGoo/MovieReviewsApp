@@ -28,29 +28,7 @@ final class Edit {
     }
     
     func configureSearchQuery(search: Target = .critic, _ nameForSearch: String? ) -> String {
-        let name = nameForSearch
-        guard let name = name else { return ""}
-        var nameWithSpace = ""
-        var separatedName = name.components(separatedBy: " ")
-        var count = 0
-        var countspase = 0
-        
-        for i in name {
-            if i == "." { count += 1 }
-            if i == " " { countspase += 1 }
-        }
-        
-        if count > 1, countspase != count {
-            count -= 1
-            for i in name {
-                nameWithSpace.append(i)
-                if count > 0, i == "." {
-                    nameWithSpace.append(" ")
-                    count -= 1
-                }
-            }
-            separatedName = nameWithSpace.components(separatedBy: " ")
-        }
-        return StorageData().searchQuery(separatedName: separatedName, search: search)
+        guard let string = nameForSearch else { return ""}
+        return StorageData().searchQuery(separatedName: string, search: search)
     }
 }

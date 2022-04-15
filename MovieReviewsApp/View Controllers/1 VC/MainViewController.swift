@@ -8,19 +8,22 @@
 import UIKit
 
 class MainViewController: UIViewController {
+    
     // MARK: - IBOutlets
+    
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var datePicker: UIDatePicker!
     @IBOutlet var searchReviews: UITextField!
     
-    // MARK: - Publick Properties
     var reviews: Review?
     
     // MARK: - Private Properties
+    
     private let refreshControl = UIRefreshControl()
     private var reviewsJsonUrl = "https://api.nytimes.com/svc/movies/v2/reviews/all.json?api-key=GW5a0tJfWOcfQ7k3dpQizIsrmpZ33Bmm"
     
     // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
@@ -82,7 +85,8 @@ class MainViewController: UIViewController {
     // MARK: - IBActions
     @IBAction func changeDate() {
         let dateSearch = Edit().configureDate(toString: datePicker)
-        let urlSerach = StorageData().searchQuery(separatedName: [dateSearch],
+        
+        let urlSerach = StorageData().searchQuery(separatedName: dateSearch,
                                                   search: .date)
         fetchData(url: urlSerach)
     }
@@ -105,8 +109,9 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         // Alert
         cell.onMoreInfoTap = { [weak self] alert in
-            self?.present(alert, animated: true)
-            self?.present(MainViewController(), animated: true, completion: nil)
+            guard let self = self else { return }
+            self.present(alert, animated: true)
+            self.present(MainViewController(), animated: true, completion: nil)
         }
         return cell
     }

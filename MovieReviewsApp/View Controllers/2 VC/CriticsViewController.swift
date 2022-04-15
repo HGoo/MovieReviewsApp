@@ -39,6 +39,7 @@ class CriticsViewController: UIViewController {
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
                     self.collectionViewCritics.reloadData()
+                    //
                 }
                 print(self.critics ?? "Error review")
             } catch let error {
