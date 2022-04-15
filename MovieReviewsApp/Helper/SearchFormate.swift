@@ -10,6 +10,9 @@ import UIKit
 
 
 final class Edit {
+    
+    static let shared = Edit()
+    
     func cutDate(date: String?) -> String {
         let name = date
         guard let name = name else { return "0000-00-00 00:00:00"}

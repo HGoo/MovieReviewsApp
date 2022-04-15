@@ -24,7 +24,7 @@ class CriticsViewController: UIViewController {
         configureSearchController()
     }
     
-    func fetchData() {
+    private func fetchData() {
         NetworkDataFetch.shared.fetchCritics(urlString: criticsJsonUrl) { [weak self] criticModel, error in
             guard let self = self else { return }
             if error == nil {
@@ -34,6 +34,7 @@ class CriticsViewController: UIViewController {
                 print(criticModel)
             } else {
                 print(error!.localizedDescription)
+                
             }
         }
     }
@@ -52,7 +53,9 @@ class CriticsViewController: UIViewController {
     }
 }
 
-extension CriticsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+//MARK: - UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
+
+extension CriticsViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return critics?.results?.count ?? 0
@@ -67,13 +70,6 @@ extension CriticsViewController: UICollectionViewDelegate, UICollectionViewDataS
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        let profile = self.storyboard?.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
-        profile.nameForSearch = critics?.results?[indexPath.row].displayName
-        self.navigationController?.pushViewController(profile, animated: true )
-    }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size = view.frame.size.width / 2
         return CGSize(width: size - 30, height: size + 50)
@@ -83,8 +79,23 @@ extension CriticsViewController: UICollectionViewDelegate, UICollectionViewDataS
         return 30
     }
 }
+    
+//MARK: - UICollectionViewDelegate
+
+extension CriticsViewController: UICollectionViewDelegate  {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let profile = self.storyboard?.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+        profile.nameForSearch = critics?.results?[indexPath.row].displayName
+        self.navigationController?.pushViewController(profile, animated: true )
+    }
+}
+
+//MARK: - UISearchResultsUpdating, UISearchControllerDelegate
 
 extension CriticsViewController: UISearchResultsUpdating, UISearchControllerDelegate {
+    
     func updateSearchResults(for searchController: UISearchController) {
         let searchText = searchController.searchBar.text
         
@@ -99,5 +110,5 @@ extension CriticsViewController: UISearchResultsUpdating, UISearchControllerDele
         searching = false
         collectionViewCritics.reloadData()
     }
-    
 }
+
