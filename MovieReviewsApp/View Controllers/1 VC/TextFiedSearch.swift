@@ -16,7 +16,7 @@ extension MainViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == searchReviews {
             
-            let separeteText = textField.text
+            let separeteText = textField.text?.components(separatedBy: " ")
             guard let separeteText = separeteText else { return true }
             
             

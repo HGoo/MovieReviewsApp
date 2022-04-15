@@ -28,7 +28,8 @@ final class Edit {
     }
     
     func configureSearchQuery(search: Target = .critic, _ nameForSearch: String? ) -> String {
-        guard let string = nameForSearch else { return ""}
+        guard let string = nameForSearch?.components(separatedBy: " ") else { return ""}
+        
         return StorageData().searchQuery(separatedName: string, search: search)
     }
 }

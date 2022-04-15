@@ -20,12 +20,16 @@ class ProfileViewController: UIViewController {
     private var criticProfile: Critics?
     private var criticReview: Review?
     private var criticProfileReviewJsonUrl: String {
-        guard let name = nameForSearch else { return ""}
+        guard let name = nameForSearch?.components(separatedBy: " ") else { return ""}
+       
         return StorageData().searchQuery(separatedName: name, search: .profile)
     }
-    private var criticProfileInfoJsonUrl: String {
-        Edit().configureSearchQuery(nameForSearch)
+    private var criticReviewJsonUrl: String {
+        guard let name = nameForSearch?.components(separatedBy: " ") else { return ""}
+       
+        return StorageData().searchQuery(separatedName: name, search: .critic)
     }
+
     
     var nameForSearch: String?
     
@@ -41,7 +45,9 @@ class ProfileViewController: UIViewController {
    
     // MARK: - Private Methods
     private func fetchDataCritic() {
-        guard let url = URL(string: criticProfileInfoJsonUrl) else { return }
+        let url = criticProfileReviewJsonUrl//.replacingOccurrences(of: " ", with: "", options: .literal, range: nil)
+        print(url + "1111111")
+        guard let url = URL(string: url) else { return }
         URLSession.shared.dataTask(with: url) { data, _, _ in
             guard let data = data else { return }
             do {
@@ -61,7 +67,9 @@ class ProfileViewController: UIViewController {
     }
     
     private func fetchDataReview() {
-        guard let url = URL(string: criticProfileReviewJsonUrl) else { return }
+        let url = criticReviewJsonUrl//.replacingOccurrences(of: " ", with: "", options: .literal, range: nil)
+        print(url + "2222222")
+        guard let url = URL(string: url) else { return }
         URLSession.shared.dataTask(with: url) { data, _, _ in
             guard let data = data else { return }
             do {
@@ -97,7 +105,7 @@ class ProfileViewController: UIViewController {
 
 extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return criticReview?.results?.count ?? 1
+        return criticReview?.results?.count ?? 0
     }
    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
