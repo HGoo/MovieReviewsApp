@@ -96,12 +96,12 @@
 			path = "3 VC";
 			sourceTree = "<group>";
 		};
-		DDA8BADE2804761A0014BA9E /* StorageData */ = {
+		DDA8BADE2804761A0014BA9E /* Network */ = {
 			isa = PBXGroup;
 			children = (
 				DD8EE5182800551B0002439F /* StorageData.swift */,
 			);
-			path = StorageData;
+			path = Network;
 			sourceTree = "<group>";
 		};
 		DDA8BAE428069FB20014BA9E /* Helper */ = {
@@ -135,7 +135,7 @@
 				DDBF64BF27FF190B00E65273 /* Source */,
 				DD0106352800AC8A0068EAFB /* Models */,
 				DDBF64BE27FF188A00E65273 /* View Controllers */,
-				DDA8BADE2804761A0014BA9E /* StorageData */,
+				DDA8BADE2804761A0014BA9E /* Network */,
 				DDA8BAE428069FB20014BA9E /* Helper */,
 				DDBF64BD27FF187E00E65273 /* Storyboard */,
 			);
