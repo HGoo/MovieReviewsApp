@@ -40,19 +40,21 @@ final class Edit {
     func searchQuery(nameForSearch: String, search: Target) -> String {
         
         let prefix = "https://api.nytimes.com/svc/movies/v2/"
+        let apiKey = "api-key=GW5a0tJfWOcfQ7k3dpQizIsrmpZ33Bmm"
         
         switch search {
         case .critic:
-            return "\(prefix)critics/\(nameForSearch).json?api-key=GW5a0tJfWOcfQ7k3dpQizIsrmpZ33Bmm".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-            
+            return "\(prefix)critics/\(nameForSearch).json?\(apiKey)".addingPercentEncoding(
+                withAllowedCharacters: .urlQueryAllowed) ?? ""
         case .profile:
-            return "https://api.nytimes.com/svc/movies/v2/reviews/search.json?reviewer=\(nameForSearch)&api-key=GW5a0tJfWOcfQ7k3dpQizIsrmpZ33Bmm".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-            
+            return "\(prefix)reviews/search.json?reviewer=\(nameForSearch)&\(apiKey)".addingPercentEncoding(
+                withAllowedCharacters: .urlQueryAllowed) ?? ""
         case .reviw:
-            return "\(prefix)reviews/search.json?query=\(nameForSearch)&api-key=GW5a0tJfWOcfQ7k3dpQizIsrmpZ33Bmm".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-            
+            return "\(prefix)reviews/search.json?query=\(nameForSearch)&\(apiKey)".addingPercentEncoding(
+                withAllowedCharacters: .urlQueryAllowed) ?? ""
         case .date:
-            return "\(prefix)reviews/search.json?publication-date=\(nameForSearch)&api-key=GW5a0tJfWOcfQ7k3dpQizIsrmpZ33Bmm".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+            return "\(prefix)reviews/search.json?publication-date=\(nameForSearch)&\(apiKey)".addingPercentEncoding(
+                withAllowedCharacters: .urlQueryAllowed) ?? ""
         }
     }
 }
