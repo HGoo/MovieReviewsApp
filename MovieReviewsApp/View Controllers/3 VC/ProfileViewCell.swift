@@ -21,10 +21,10 @@ class ProfileViewCell: UICollectionViewCell {
     var indexPath: IndexPath!
     var asyncIndex: Int!
     
-    private var reviewContainer: Result!
+    private var reviewContainer: Results!
     
     // MARK: - Methods
-    func configure(with review: Result, index : IndexPath) {
+    func configure(with review: Results, index : IndexPath) {
         indexPath = index
         reviewLink.borderCritic()
     

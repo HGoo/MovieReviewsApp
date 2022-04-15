@@ -21,10 +21,10 @@ class ReviewViewCell: UICollectionViewCell {
     var indexPath: IndexPath!
     var asyncIndex: Int!
     
-    private var reviewContainer: Result!
+    private var reviewContainer: Results!
     
     // MARK: - Publick Methods
-    func configure(with review: Result, index : IndexPath) {
+    func configure(with review: Results, index : IndexPath) {
         //TODO: Asyn match
         indexPath = index
         reviewLink.borderButton()

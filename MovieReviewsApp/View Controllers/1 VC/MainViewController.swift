@@ -86,7 +86,7 @@ class MainViewController: UIViewController {
     @IBAction func changeDate() {
         let dateSearch = Edit().configureDate(toString: datePicker)
         
-        let urlSerach = StorageData().searchQuery(separatedName: [dateSearch],
+        let urlSerach = StorageData().searchQuery(nameForSearch: dateSearch,
                                                   search: .date)
         fetchData(url: urlSerach)
     }

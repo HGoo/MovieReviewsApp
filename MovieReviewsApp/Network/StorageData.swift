@@ -58,12 +58,14 @@ class StorageData {
         return nil
     }
     
-    func searchQuery(separatedName: [String], search: Target) -> String {
+    func searchQuery(nameForSearch: String, search: Target) -> String {
+        
+        let nameForSearch = nameForSearch.components(separatedBy: " ")
         var result = ""
         
-        for searchStr in separatedName  {
+        for searchStr in nameForSearch  {
             let tag = "%20"
-            if searchStr == separatedName.last {
+            if searchStr == nameForSearch.last {
                 result += searchStr
             } else {
                 result += searchStr + tag

@@ -10,10 +10,10 @@ import Foundation
 struct Review: Decodable {
     let status: String?
     let numResults: Int?
-    let results: [Result]?
+    let results: [Results]?
 }
 
-struct Result: Decodable {
+struct Results: Decodable {
     let displayTitle: String?
     var byline: String?
     let headline: String?

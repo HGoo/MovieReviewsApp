@@ -13,6 +13,7 @@
 		DD8EE5152800339C0002439F /* CriticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8EE5142800339C0002439F /* CriticsViewController.swift */; };
 		DD8EE517280053820002439F /* ReviewViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8EE516280053820002439F /* ReviewViewCell.swift */; };
 		DD8EE5192800551B0002439F /* StorageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8EE5182800551B0002439F /* StorageData.swift */; };
+		DDA433AD2809B4B90071F67A /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA433AC2809B4B90071F67A /* NetworkRequest.swift */; };
 		DDA8BAD82801B1BF0014BA9E /* CriticViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA8BAD72801B1BF0014BA9E /* CriticViewCell.swift */; };
 		DDA8BADA2801C10A0014BA9E /* ModelCritics.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA8BAD92801C10A0014BA9E /* ModelCritics.swift */; };
 		DDA8BADD280455510014BA9E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA8BADC280455510014BA9E /* ProfileViewController.swift */; };
@@ -33,6 +34,7 @@
 		DD8EE5142800339C0002439F /* CriticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CriticsViewController.swift; sourceTree = "<group>"; };
 		DD8EE516280053820002439F /* ReviewViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewCell.swift; sourceTree = "<group>"; };
 		DD8EE5182800551B0002439F /* StorageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageData.swift; sourceTree = "<group>"; };
+		DDA433AC2809B4B90071F67A /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
 		DDA8BAD72801B1BF0014BA9E /* CriticViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CriticViewCell.swift; sourceTree = "<group>"; };
 		DDA8BAD92801C10A0014BA9E /* ModelCritics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelCritics.swift; sourceTree = "<group>"; };
 		DDA8BADC280455510014BA9E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				DD8EE5182800551B0002439F /* StorageData.swift */,
+				DDA433AC2809B4B90071F67A /* NetworkRequest.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 				DD8EE5152800339C0002439F /* CriticsViewController.swift in Sources */,
 				DDBF64AA27FF186400E65273 /* AppDelegate.swift in Sources */,
 				DDBF64AC27FF186400E65273 /* SceneDelegate.swift in Sources */,
+				DDA433AD2809B4B90071F67A /* NetworkRequest.swift in Sources */,
 				DD8EE5192800551B0002439F /* StorageData.swift in Sources */,
 				DD8EE5112800327F0002439F /* MainViewController.swift in Sources */,
 				DDA8BAD82801B1BF0014BA9E /* CriticViewCell.swift in Sources */,
