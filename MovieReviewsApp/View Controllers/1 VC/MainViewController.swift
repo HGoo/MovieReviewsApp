@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class MainViewController: UIViewController {
     
     @IBOutlet var collectionView: UICollectionView!
@@ -15,6 +16,10 @@ class MainViewController: UIViewController {
    
     private let refreshControl = UIRefreshControl()
     private var reviewsJsonUrl = "https://api.nytimes.com/svc/movies/v2/reviews/all.json?api-key=GW5a0tJfWOcfQ7k3dpQizIsrmpZ33Bmm"
+    private var isPaginating = false
+    private var search = false
+    private var offSet = 0
+    private var nameForSearch = ""
     var reviews: Review?
     
     override func viewDidLoad() {
@@ -39,10 +44,8 @@ class MainViewController: UIViewController {
                 self.reviews = reviewModel
                 self.collectionView.reloadData()
                 self.collectionView.refreshControl?.endRefreshing()
-                print(reviewModel)
             } else {
                 print(error!.localizedDescription)
-                
             }
         }
     }
@@ -62,6 +65,8 @@ class MainViewController: UIViewController {
     
     @objc func refresh() {
         fetchData(url: reviewsJsonUrl)
+        self.offSet = 0
+        search = false
         refreshControl.endRefreshing()
     }
     
@@ -123,17 +128,61 @@ extension MainViewController: UITextFieldDelegate {
         
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == searchReviews {
-            
+            search = true
             guard let separeteText = textField.text else { return true }
+            self.nameForSearch = separeteText
             let search = Edit.shared.searchQuery(nameForSearch: separeteText,
                                                    search: .reviw)
             
             textField.resignFirstResponder()
             textField.text = nil
-            
+            collectionView.scrollToItem(at: NSIndexPath(item: 0, section: 0) as IndexPath,
+                                        at: .top,
+                                        animated: true)
             fetchData(url: search)
-          }
+        }
         return true
+    }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension MainViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let position = scrollView.contentOffset.y
+        if position > (collectionView.contentSize.height - 100 - scrollView.frame.size.height) {
+            
+            guard !isPaginating else { return }
+            isPaginating = true
+            offSet += 20
+            
+            var url = ""
+            
+            if !search {
+                url = Edit.shared.searchQuery(offset: self.offSet, nameForSearch: "",
+                                                  search: .pagination)
+            } else {
+                url = Edit.shared.searchQuery(offset: self.offSet, nameForSearch: self.nameForSearch,
+                                                  search: .reviw)
+            }
+            
+            NetworkDataFetch.shared.fetchReview(urlString: url) { [weak self] reviewModel, error in
+                guard let self = self else { return }
+                if error == nil {
+                    guard let reviewModel = reviewModel?.results else { return }
+                    
+                    self.reviews?.results?.append(contentsOf: reviewModel)
+                    self.collectionView.reloadData()
+                    
+                    self.isPaginating = false
+                } else {
+                    print(error!.localizedDescription)
+                    self.isPaginating = false
+                    self.offSet = 0
+                }
+            }
+        }
     }
 }
 

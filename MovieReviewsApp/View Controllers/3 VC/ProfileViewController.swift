@@ -25,6 +25,8 @@ class ProfileViewController: UIViewController {
         guard let name = nameForSearch else { return ""}
         return Edit.shared.searchQuery(nameForSearch: name, search: .profile)
     }
+    private var isPaginating = false
+    private var offSet = 0
 
     var nameForSearch: String?
     
@@ -35,7 +37,6 @@ class ProfileViewController: UIViewController {
         
         fetchDataCritic()
         fetchDataReview()
-        print(criticReviewJsonUrl)
     }
     
     private func fetchDataCritic() {
@@ -71,12 +72,16 @@ class ProfileViewController: UIViewController {
     
     private func configureProfile() {
         let result = criticProfile?.results?[0]
-        if result?.multimedia?.resource?.src == nil {
-            imageProfile.image = UIImage(named: "personIcon")
-        }
         nameCritic.text = nameForSearch
         statusCritic.text = result?.status
         bioCritic.text = result?.bio
+        
+        
+        if result?.multimedia?.resource?.src == nil {
+            print(result?.multimedia?.resource?.src ?? "1")
+            imageProfile.image = UIImage(named: "personIcon")
+            return
+        }
         
         StorageData().fetchCachImage(with: result?.multimedia?.resource?.src,
                                      imageView: imageProfile) { image in
@@ -124,6 +129,43 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: self.view.frame.size.width - 30, height: 390)
+    }
+}
+
+
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension ProfileViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let position = scrollView.contentOffset.y
+        if position > (collectionProfile.contentSize.height - 100 - scrollView.frame.size.height) {
+            
+            guard !isPaginating else { return }
+            isPaginating = true
+            offSet += 20
+            
+            let url = Edit.shared.searchQuery(offset: offSet, nameForSearch: nameForSearch ?? "",
+                                              search: .profile)
+           
+            
+            
+            NetworkDataFetch.shared.fetchReview(urlString: url) { [weak self] reviewModel, error in
+                guard let self = self else { return }
+                if error == nil {
+                    guard let reviewModel = reviewModel?.results else { return }
+                    
+                    self.criticReview?.results?.append(contentsOf: reviewModel)
+                    self.collectionProfile.reloadData()
+                    
+                    self.isPaginating = false
+                } else {
+                    print(error!.localizedDescription)
+                    self.isPaginating = false
+                    self.offSet = 0
+                }
+            }
+        }
     }
 }
 

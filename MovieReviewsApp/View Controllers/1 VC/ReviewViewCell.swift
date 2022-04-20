@@ -30,6 +30,11 @@ class ReviewViewCell: UICollectionViewCell {
         reviewContainer = review
         configureReviewFields()
         
+        if review.multimedia?.src == nil {
+            self.imageReview.image = UIImage(named: "notFound")
+            return
+        }
+        
         StorageData().fetchCachImage(with: review.multimedia?.src,
                                      imageView: imageReview) { image in
             self.asyncIndex = index.row

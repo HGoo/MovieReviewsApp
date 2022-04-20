@@ -16,7 +16,7 @@ class NetworkDataFetch {
         
     }
     
-    func fetchReview(urlString: String, responce: @escaping (Review?, Error?) -> Void) {
+    func fetchReview(pagination: Bool = false, urlString: String, responce: @escaping (Review?, Error?) -> Void) {
         NetworkRequest.shared.requestData(urlString: urlString) { data in
             
             switch data {
