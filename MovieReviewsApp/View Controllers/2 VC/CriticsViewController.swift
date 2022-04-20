@@ -13,7 +13,11 @@ class CriticsViewController: UIViewController {
     private let criticsJsonUrl = "https://api.nytimes.com/svc/movies/v2/critics/all.json?api-key=GW5a0tJfWOcfQ7k3dpQizIsrmpZ33Bmm"
     private var critics: Critics?
     private var criticsSorted: [ResultCritic]?
+    private var search = false
+    private var criticsSearchData = [ResultCritic]()
     private let searchController = UISearchController(searchResultsController: nil)
+    
+    var timer: Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,19 +41,10 @@ class CriticsViewController: UIViewController {
                     }
                     self.criticsSorted = sortedCritic
                     self.collectionViewCritics.reloadData()
-                } else {
-                    //
                 }
-                
-                //                guard let criticModel = criticModel else { return }
-                //                self.critics = criticModel
-                //                self.collectionViewCritics.reloadData()
-                //            } else {
-                //                print(error!.localizedDescription)
-                //
-                            }
             }
         }
+    }
     
     private func configureSearchController() {
         searchController.loadViewIfNeeded()
@@ -61,7 +56,7 @@ class CriticsViewController: UIViewController {
         self.navigationItem.hidesSearchBarWhenScrolling = false
         self.navigationItem.searchController = searchController
         definesPresentationContext = true
-        searchController.searchBar.placeholder = "Search "
+        searchController.searchBar.placeholder = "Search"
     }
 }
 
@@ -70,12 +65,15 @@ class CriticsViewController: UIViewController {
 extension CriticsViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return criticsSorted?.count ?? 0
+        return search ? criticsSearchData.count : criticsSorted?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellCritics", for: indexPath) as! CriticViewCell
-        guard let critic = criticsSorted?[indexPath.row] else { return cell }
+        
+        let critic = search ? criticsSearchData : criticsSorted
+        
+        guard let critic = critic?[indexPath.row] else { return cell }
         
         cell.configureCritic(with: critic)
         
@@ -91,7 +89,7 @@ extension CriticsViewController: UICollectionViewDataSource, UICollectionViewDel
         return 30
     }
 }
-    
+
 //MARK: - UICollectionViewDelegate
 
 extension CriticsViewController: UICollectionViewDelegate  {
@@ -99,7 +97,8 @@ extension CriticsViewController: UICollectionViewDelegate  {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let profile = self.storyboard?.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
-        profile.nameForSearch = criticsSorted?[indexPath.row].displayName
+        let critic = search ? criticsSearchData : criticsSorted
+        profile.nameForSearch = critic?[indexPath.row].displayName
         self.navigationController?.pushViewController(profile, animated: true )
     }
 }
@@ -110,15 +109,39 @@ extension CriticsViewController: UISearchResultsUpdating, UISearchControllerDele
     
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text else { return }
+        guard let criticsSorted = criticsSorted else { return }
         
-        
-        if !searchText.isEmpty {
-            
+        criticsSearchData = []
+        for critic in criticsSorted {
+            if searchText != "" {
+                search = true
+                
+                guard let name = critic.displayName else { return }
+                let names = name.components(separatedBy: " ")
+                
+                for name in names {
+                    if name.count >= searchText.count {
+                        let endIndex = name.index(name.startIndex, offsetBy: searchText.count - 1)
+                        let cuted = name[...endIndex]
+                        let nameCuted = String(cuted)
+                        if nameCuted == searchText {
+                            criticsSearchData.append(critic)
+                        }
+                    }
+                }
+            } else {
+                search = false
+                collectionViewCritics.reloadData()
+            }
         }
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        collectionViewCritics.reloadData()
+        
+        if searchText != "" {
+            timer?.invalidate()
+            timer = Timer.scheduledTimer(withTimeInterval: 0.7, repeats: false) { [weak self] _ in
+                guard let self = self else { return }
+                self.collectionViewCritics.reloadData()
+            }
+        }
     }
 }
 
