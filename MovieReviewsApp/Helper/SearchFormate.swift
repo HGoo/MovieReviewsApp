@@ -53,8 +53,7 @@ final class Edit {
             return "\(prefix)reviews/search.json?query=\(nameForSearch)&\(apiKey)".addingPercentEncoding(
                 withAllowedCharacters: .urlQueryAllowed) ?? ""
         case .date:
-            return "\(prefix)reviews/search.json?publication-date=\(nameForSearch)&\(apiKey)".addingPercentEncoding(
-                withAllowedCharacters: .urlQueryAllowed) ?? ""
+            return "\(prefix)reviews/search.json?publication-date=\(nameForSearch)&\(apiKey)"
         }
     }
 }
