@@ -35,7 +35,6 @@ class ProfileViewController: UIViewController {
         
         collectionProfile.delegate = self
         collectionProfile.dataSource = self
-        print(criticName, "0000000000000000")
         fetchDataCritic()
         fetchDataReview()
     }
