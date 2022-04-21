@@ -8,7 +8,7 @@
 import UIKit
 
 class ProfileViewCell: UICollectionViewCell {
-    // MARK: - IBOutlets
+
     @IBOutlet var imageReview: UIImageView!
     @IBOutlet var headerReview: UILabel!
     @IBOutlet var bodyReview: UILabel!
@@ -16,15 +16,14 @@ class ProfileViewCell: UICollectionViewCell {
     @IBOutlet var criticProfile: UIButton!
     @IBOutlet var reviewLink: UIButton!
     
-    // MARK: - Publick Properties
     var onMoreInfoTap: ((_ :UIAlertController) -> Void)?
     var indexPath: IndexPath!
     var asyncIndex: Int!
     
     private var reviewContainer: Results!
     
-    // MARK: - Methods
     func configure(with review: Results, index : IndexPath) {
+        
         indexPath = index
         reviewLink.borderCritic()
     
@@ -41,8 +40,8 @@ class ProfileViewCell: UICollectionViewCell {
         }
     }
     
-    // MARK: - Private Methods
     private func configureReviewFields() {
+        
         criticProfile.setTitle("  \(reviewContainer.byline ?? "No Name")", for: .normal)
         publishDate.text = reviewContainer.dateUpdated
         bodyReview.text = reviewContainer.summaryShort
@@ -51,15 +50,16 @@ class ProfileViewCell: UICollectionViewCell {
     }
     
     private func equals(_ image: UIImage) {
+        
         if self.asyncIndex == self.indexPath.row {
             self.imageReview.image = image
-            //activityIndicator.stopAnimating()
         }
     }
     
-    // MARK: - IBActions
     @IBAction func reviewLinkPresed(_ sender: Any) {
+        
         reviewLink.animatePulse()
+        
         //Alert and follow link
         guard let urlReview = reviewContainer.link?.url else { return }
         guard let url = URL(string: urlReview) else { return }

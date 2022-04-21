@@ -38,26 +38,26 @@ final class Edit {
         return "\(selectedDate)%3A\(selectedDate)"
     }
     
-    func searchQuery(offset: Int = 0, nameForSearch: String, search: Target) -> String {
+    func searchQuery(with offSet: Int = 0, nameForSearch: String, link: Target) -> String {
         
         let prefix = "https://api.nytimes.com/svc/movies/v2/"
         let apiKey = "api-key=GW5a0tJfWOcfQ7k3dpQizIsrmpZ33Bmm"
         
         
-        switch search {
+        switch link {
         case .critic:
             return "\(prefix)critics/\(nameForSearch).json?\(apiKey)".addingPercentEncoding(
                 withAllowedCharacters: .urlQueryAllowed) ?? ""
         case .profile:
-            return "\(prefix)reviews/search.json?offset=\(offset)&reviewer=\(nameForSearch)&\(apiKey)".addingPercentEncoding(
+            return "\(prefix)reviews/search.json?offset=\(offSet)&reviewer=\(nameForSearch)&\(apiKey)".addingPercentEncoding(
                 withAllowedCharacters: .urlQueryAllowed) ?? ""
         case .reviw:
-            return "\(prefix)reviews/search.json?offset=\(offset)&query=\(nameForSearch)&\(apiKey)".addingPercentEncoding(
+            return "\(prefix)reviews/search.json?offset=\(offSet)&query=\(nameForSearch)&\(apiKey)".addingPercentEncoding(
                 withAllowedCharacters: .urlQueryAllowed) ?? ""
         case .date:
             return "\(prefix)reviews/search.json?publication-date=\(nameForSearch)&\(apiKey)"
         case .pagination:
-            return "\(prefix)reviews/all.json?offset=\(offset)&\(apiKey)"
+            return "\(prefix)reviews/all.json?offset=\(offSet)&\(apiKey)"
         }
     }
 }

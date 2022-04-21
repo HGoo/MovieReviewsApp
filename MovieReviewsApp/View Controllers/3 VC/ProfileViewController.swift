@@ -17,37 +17,39 @@ class ProfileViewController: UIViewController {
     
     private var criticProfile: Critics?
     private var criticReview: Review?
-    private var criticProfileReviewJsonUrl: String {
-        guard let name = nameForSearch else { return ""}
-        return Edit.shared.searchQuery(nameForSearch: name, search: .critic)
+    private var criticProfileJsonUrl: String {
+        guard let name = criticName else { return ""}
+        return Edit.shared.searchQuery(nameForSearch: name, link: .critic)
     }
     private var criticReviewJsonUrl: String {
-        guard let name = nameForSearch else { return ""}
-        return Edit.shared.searchQuery(nameForSearch: name, search: .profile)
+        guard let name = criticName else { return ""}
+        return Edit.shared.searchQuery(nameForSearch: name, link: .profile)
     }
     private var isPaginating = false
     private var offSet = 0
 
-    var nameForSearch: String?
+    var criticName: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         collectionProfile.delegate = self
         collectionProfile.dataSource = self
-        
+        print(criticName, "0000000000000000")
         fetchDataCritic()
         fetchDataReview()
     }
     
     private func fetchDataCritic() {
-        NetworkDataFetch.shared.fetchCritics(urlString: criticProfileReviewJsonUrl) { [weak self] criticModel, error in
+        
+        NetworkDataFetch.shared.fetchCritics(urlString: criticProfileJsonUrl) { [weak self] criticModel, error in
             guard let self = self else { return }
             if error == nil {
                 guard let criticModel = criticModel else { return }
                 self.criticProfile = criticModel
                 self.configureProfile()
                 self.collectionProfile.reloadData()
-                print(criticModel)
+                print(criticModel,"    ", self.criticProfileJsonUrl)
             } else {
                 print(error!.localizedDescription)
                 
@@ -56,13 +58,14 @@ class ProfileViewController: UIViewController {
     }
     
     private func fetchDataReview() {
+        
         NetworkDataFetch.shared.fetchReview(urlString: criticReviewJsonUrl) { [weak self] reviewModel, error in
             guard let self = self else { return }
             if error == nil {
                 guard let reviewModel = reviewModel else { return }
                 self.criticReview = reviewModel
                 self.collectionProfile.reloadData()
-                print(reviewModel)
+                print(reviewModel,"    ", self.criticReviewJsonUrl)
             } else {
                 print(error!.localizedDescription)
                 
@@ -71,14 +74,14 @@ class ProfileViewController: UIViewController {
     }
     
     private func configureProfile() {
+        
         let result = criticProfile?.results?[0]
-        nameCritic.text = nameForSearch
+        nameCritic.text = criticName
         statusCritic.text = result?.status
         bioCritic.text = result?.bio
         
         
         if result?.multimedia?.resource?.src == nil {
-            print(result?.multimedia?.resource?.src ?? "1")
             imageProfile.image = UIImage(named: "personIcon")
             return
         }
@@ -116,9 +119,10 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     @objc func viewProfile(sender: UIButton) {
+        
         let indexPath = IndexPath(row: sender.tag, section: 0)
         let profile = self.storyboard?.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
-        profile.nameForSearch = criticReview?.results?[indexPath.row].byline
+        profile.criticName = criticReview?.results?[indexPath.row].byline
         self.navigationController?.pushViewController(profile, animated: true )
     }
 }
@@ -138,6 +142,7 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
 extension ProfileViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
         let position = scrollView.contentOffset.y
         if position > (collectionProfile.contentSize.height - 100 - scrollView.frame.size.height) {
             
@@ -145,8 +150,8 @@ extension ProfileViewController: UIScrollViewDelegate {
             isPaginating = true
             offSet += 20
             
-            let url = Edit.shared.searchQuery(offset: offSet, nameForSearch: nameForSearch ?? "",
-                                              search: .profile)
+            let url = Edit.shared.searchQuery(with: offSet, nameForSearch: criticName ?? "",
+                                              link: .profile)
            
             
             

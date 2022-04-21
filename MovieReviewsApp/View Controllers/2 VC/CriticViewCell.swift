@@ -12,6 +12,7 @@ class CriticViewCell: UICollectionViewCell {
     @IBOutlet var nameCritic: UILabel!
     
     func configureCritic(with critic: ResultCritic) {
+        
         nameCritic.text = critic.displayName
         
         if critic.multimedia?.resource?.src == nil {

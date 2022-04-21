@@ -103,7 +103,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Ag-8t-2Ro">
-                                                    <rect key="frame" x="0.0" y="310" width="191" height="25"/>
+                                                    <rect key="frame" x="0.0" y="310" width="241" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="6Ep-tf-3PV"/>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="191" id="PxL-Q4-h3e"/>
@@ -146,7 +146,7 @@
                                             <constraint firstItem="pVS-ax-LJj" firstAttribute="top" secondItem="fal-8V-liW" secondAttribute="top" id="00D-1U-OoF"/>
                                             <constraint firstAttribute="trailing" secondItem="oFr-05-S5A" secondAttribute="trailing" id="34D-lv-EJh"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="Pjj-kn-KKu" secondAttribute="trailing" constant="-7.9999999999999432" id="G5v-hF-OaU"/>
-                                            <constraint firstItem="Pjj-kn-KKu" firstAttribute="leading" relation="lessThanOrEqual" secondItem="4Ag-8t-2Ro" secondAttribute="trailing" constant="90" id="HWU-Lo-2e3"/>
+                                            <constraint firstItem="Pjj-kn-KKu" firstAttribute="leading" secondItem="4Ag-8t-2Ro" secondAttribute="trailing" constant="40" id="HWU-Lo-2e3"/>
                                             <constraint firstAttribute="trailing" secondItem="pVS-ax-LJj" secondAttribute="trailing" id="Kl5-bM-rDf"/>
                                             <constraint firstItem="pVS-ax-LJj" firstAttribute="leading" secondItem="fal-8V-liW" secondAttribute="leading" id="MlM-g4-EOE"/>
                                             <constraint firstItem="Pjj-kn-KKu" firstAttribute="centerY" secondItem="4Ag-8t-2Ro" secondAttribute="centerY" id="QBm-Me-x6U"/>
@@ -304,7 +304,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yik-NH-cge">
-                                                    <rect key="frame" x="0.0" y="305" width="191" height="25"/>
+                                                    <rect key="frame" x="0.0" y="305" width="241" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="191" id="qro-yt-dK6"/>
                                                         <constraint firstAttribute="height" constant="25" id="s8C-fi-ORE"/>
@@ -338,7 +338,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="Wx4-Ad-rSY" secondAttribute="trailing" id="A2d-xV-37v"/>
                                                 <constraint firstAttribute="trailing" secondItem="sHm-s1-edB" secondAttribute="trailing" id="Ava-72-jdt"/>
                                                 <constraint firstItem="yik-NH-cge" firstAttribute="leading" secondItem="6YF-nU-thg" secondAttribute="leading" id="Bgq-LI-niv"/>
-                                                <constraint firstItem="sHm-s1-edB" firstAttribute="leading" relation="lessThanOrEqual" secondItem="yik-NH-cge" secondAttribute="trailing" constant="90" id="Cl0-5k-xIp"/>
+                                                <constraint firstItem="sHm-s1-edB" firstAttribute="leading" secondItem="yik-NH-cge" secondAttribute="trailing" constant="40" id="Cl0-5k-xIp"/>
                                                 <constraint firstAttribute="trailing" secondItem="gWj-EW-qR5" secondAttribute="trailing" id="GLI-jv-0XF"/>
                                                 <constraint firstItem="Yba-Ht-Edt" firstAttribute="leading" secondItem="6YF-nU-thg" secondAttribute="leading" id="N9Z-bv-sDa"/>
                                                 <constraint firstItem="PMw-Lb-G1a" firstAttribute="leading" secondItem="6YF-nU-thg" secondAttribute="leading" id="PJw-gD-bYg"/>

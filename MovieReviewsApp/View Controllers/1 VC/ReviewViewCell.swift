@@ -44,6 +44,7 @@ class ReviewViewCell: UICollectionViewCell {
     }
 
     private func configureReviewFields() {
+        
         criticProfile.setTitle("  \(reviewContainer.byline ?? "No Name")", for: .normal)
         bodyReview.text = reviewContainer.summaryShort
         headerReview.text =  reviewContainer.displayTitle

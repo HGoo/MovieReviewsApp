@@ -21,6 +21,7 @@ class CriticsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         collectionViewCritics.delegate = self
         collectionViewCritics.dataSource = self
         
@@ -29,6 +30,7 @@ class CriticsViewController: UIViewController {
     }
     
     private func fetchData() {
+        
         NetworkDataFetch.shared.fetchCritics(urlString: criticsJsonUrl) { [weak self] criticModel, error in
             guard let self = self else { return }
             if error == nil {
@@ -98,7 +100,7 @@ extension CriticsViewController: UICollectionViewDelegate  {
         
         let profile = self.storyboard?.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
         let critic = search ? criticsSearchData : criticsSorted
-        profile.nameForSearch = critic?[indexPath.row].displayName
+        profile.criticName = critic?[indexPath.row].displayName
         self.navigationController?.pushViewController(profile, animated: true )
     }
 }
@@ -108,6 +110,7 @@ extension CriticsViewController: UICollectionViewDelegate  {
 extension CriticsViewController: UISearchResultsUpdating, UISearchControllerDelegate {
     
     func updateSearchResults(for searchController: UISearchController) {
+        
         guard let searchText = searchController.searchBar.text else { return }
         guard let criticsSorted = criticsSorted else { return }
         

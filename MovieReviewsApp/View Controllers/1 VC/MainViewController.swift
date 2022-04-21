@@ -13,30 +13,34 @@ class MainViewController: UIViewController {
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var datePicker: UIDatePicker!
     @IBOutlet var searchReviews: UITextField!
-   
+    
     private let refreshControl = UIRefreshControl()
     private var reviewsJsonUrl = "https://api.nytimes.com/svc/movies/v2/reviews/all.json?api-key=GW5a0tJfWOcfQ7k3dpQizIsrmpZ33Bmm"
     private var isPaginating = false
-    private var search = false
+    private var startSearch = false
     private var offSet = 0
     private var nameForSearch = ""
     var reviews: Review?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setup()
+        fetchData(url: reviewsJsonUrl)
+        pullTorefresh()
+        hideKeyboard()
+    }
+    
+    private func setup() {
+        
         collectionView.delegate = self
         collectionView.dataSource = self
         searchReviews.delegate = self
         collectionView.alwaysBounceVertical = true
-        
-        fetchData(url: reviewsJsonUrl)
-        pullTorefresh()
-        hideKeyboard()
-        
-        searchReviews.layer.cornerRadius = 30
     }
     
-     func fetchData(url: String) {
+    func fetchData(url: String) {
+        
         NetworkDataFetch.shared.fetchReview(urlString: url) { [weak self] reviewModel, error in
             guard let self = self else { return }
             if error == nil {
@@ -51,6 +55,7 @@ class MainViewController: UIViewController {
     }
     
     private func hideKeyboard() {
+        
         let tapScreen = UITapGestureRecognizer(target: self,
                                                action: #selector(dismissKeyboard))
         tapScreen.cancelsTouchesInView = false
@@ -58,15 +63,18 @@ class MainViewController: UIViewController {
     }
     
     private func pullTorefresh() {
+        
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(self.refresh), for: .valueChanged)
         collectionView.addSubview(refreshControl)
     }
     
     @objc func refresh() {
+        
         fetchData(url: reviewsJsonUrl)
-        self.offSet = 0
-        search = false
+        offSet = 0
+        startSearch = false
+        isPaginating = false
         refreshControl.endRefreshing()
     }
     
@@ -75,10 +83,11 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func changeDate() {
+        
         let dateSearch = Edit.shared.configureDate(toString: datePicker)
-    
+        
         let urlSerach = Edit.shared.searchQuery(nameForSearch: dateSearch,
-                                                  search: .date)
+                                                link: .date)
         fetchData(url: urlSerach)
     }
 }
@@ -111,9 +120,10 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     // Tap on name critick
     @objc func viewProfile(sender: UIButton) {
+        
         let indexPath = IndexPath(row: sender.tag, section: 0)
         let profile = self.storyboard?.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
-        profile.nameForSearch = reviews?.results?[indexPath.row].byline
+        profile.criticName = reviews?.results?[indexPath.row].byline
         self.navigationController?.pushViewController(profile, animated: true )
     }
 }
@@ -121,24 +131,31 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
 // MARK: - UITextFieldDelegate
 
 extension MainViewController: UITextFieldDelegate {
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         view.endEditing(true)
     }
-        
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
         if textField == searchReviews {
-            search = true
+            startSearch = true
             guard let separeteText = textField.text else { return true }
             self.nameForSearch = separeteText
             let search = Edit.shared.searchQuery(nameForSearch: separeteText,
-                                                   search: .reviw)
+                                                 link: .reviw)
             
             textField.resignFirstResponder()
             textField.text = nil
-            collectionView.scrollToItem(at: NSIndexPath(item: 0, section: 0) as IndexPath,
-                                        at: .top,
-                                        animated: true)
+            
+            //Swipe to top
+            if reviews?.results?.count != nil {
+                collectionView.scrollToItem(at: NSIndexPath(item: 0, section: 0) as IndexPath,
+                                            at: .top,
+                                            animated: true)
+            }
+            
             fetchData(url: search)
         }
         return true
@@ -150,6 +167,7 @@ extension MainViewController: UITextFieldDelegate {
 extension MainViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
         let position = scrollView.contentOffset.y
         if position > (collectionView.contentSize.height - 100 - scrollView.frame.size.height) {
             
@@ -159,12 +177,12 @@ extension MainViewController: UIScrollViewDelegate {
             
             var url = ""
             
-            if !search {
-                url = Edit.shared.searchQuery(offset: self.offSet, nameForSearch: "",
-                                                  search: .pagination)
+            if startSearch {
+                url = Edit.shared.searchQuery(with: self.offSet, nameForSearch: self.nameForSearch,
+                                              link: .reviw)
             } else {
-                url = Edit.shared.searchQuery(offset: self.offSet, nameForSearch: self.nameForSearch,
-                                                  search: .reviw)
+                url = Edit.shared.searchQuery(with: self.offSet, nameForSearch: "",
+                                              link: .pagination)
             }
             
             NetworkDataFetch.shared.fetchReview(urlString: url) { [weak self] reviewModel, error in
